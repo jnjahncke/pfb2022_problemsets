@@ -1,0 +1,7 @@
+  283  mkdir pfb_github_repo
+  284  cd pfb_github_repo
+  285  git clone git@github.com:prog4biol/pfb2022.git
+  286  cd
+  287  pwd
+  288  history 283
+  291  cd pfb2022_problemsets/ProblemSets/files
