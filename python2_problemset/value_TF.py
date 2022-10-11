@@ -21,7 +21,13 @@ except:
 			else:
 				b = a
 		except:
-			b = a
+			try:
+				if type(float(a)) == float:
+					b = float(a)
+				else:
+					b = a
+			except:
+				b = a
 
 if bool(b) == True:
 	print(b, "is True")
