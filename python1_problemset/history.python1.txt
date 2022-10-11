@@ -1,0 +1,47 @@
+  299  python3
+  300  vi name.py
+  303  chmod +x name.py
+  304  ./name.py
+  306  vi name.py
+  307  name.py Jennifer
+  308  ./name.py Jennifer
+  316  mkdir python1_problemset
+  318  mv name.py pfb2022_problemsets/python1_problemset
+  319  cd pfb2022_problemsets/python1_problemset
+  320  git status
+  321  git add .
+  322  git status
+  323  git commit -m 'python problemset 1 name to print'
+  324  git push origin main
+  325  vi name.py
+  328  ./name.py Jennifer Green
+  329  vi name.py
+  330  ./name.py Jennifer Green Sleeping
+  331  vi name.py
+  332  ./name.py Jennifer Green Sleeping Dog
+  333  vi name.py
+  334  ./name.py Jennifer Freen Sleeping Dog
+  335  vi name.py
+  336  ./name.py Jennifer Freen Sleeping Dog
+  337  vi name.py
+  338  ./name.py Jennifer Green Sleeping Dog
+  339  git status
+  340  git add .
+  341  git status
+  342  git commit -m 'updated name script'
+  343  git push origin main
+  350  cd pfb2022_problemsets
+  353  mv ProblemSets unix1_problemset
+  354  git add .
+  355  git commit -u 'move problemsets'
+  356  git status
+  357  git commit -m 'move problemsets'
+  358  git push origin main
+  359  cd python1_problemset
+  360  mv name.py get_to_know_you.py
+  361  ./get_to_know_you.py Jennifer Green Sleeping Dog
+  362  git add .
+  363  git commit -m 'change script name'
+  364  git push origin main
+  365  cd
+  366  cd pfb2022_problemsets/python1_problemset
