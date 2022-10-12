@@ -6,8 +6,10 @@
 
 seqlist = ['ATGCCCGGCCCGGC','GCGTGCTAGCAATACGATAAACCGG', 'ATATATATCGAT','ATGGGCCC']
 
+pos = 1
 for seq in seqlist:
-	print(f'{len(seq)}	{seq}')
+	print(f'{pos}	{len(seq)}	{seq}')
+	pos += 1
 
 
 print('\n\n') # whitespace
