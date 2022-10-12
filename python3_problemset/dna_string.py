@@ -33,7 +33,7 @@ dna_100to200_comp = dna_100to200.replace("C","g")
 dna_100to200_comp = dna_100to200_comp.replace("G","c")
 dna_100to200_comp = dna_100to200_comp.replace("T","a")
 dna_100to200_comp = dna_100to200_comp.replace("A","t")
-dna_100to200_comp = dna_100to200_comp.upper()
+dna_100to200_comp = dna_100to200_comp.upper()[::-1]
 print(f'\n\nThe DNA reverse complement of this substring is: {dna_100to200_comp}')
 
 
