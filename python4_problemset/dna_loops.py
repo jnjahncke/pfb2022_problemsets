@@ -8,3 +8,16 @@ seqlist = ['ATGCCCGGCCCGGC','GCGTGCTAGCAATACGATAAACCGG', 'ATATATATCGAT','ATGGGCC
 
 for seq in seqlist:
 	print(f'{len(seq)}	{seq}')
+
+
+print('\n\n') # whitespace
+
+
+# Generate a list of tuples containing sequences and lengths from seqlist
+seqlist_tup = []
+for seq in seqlist:
+	seqlen = len(seq)
+	temp = (seqlen, seq)
+	seqlist_tup.append(temp)
+print(seqlist_tup)
+
