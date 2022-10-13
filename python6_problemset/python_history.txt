@@ -1,0 +1,8 @@
+ 1009  sort alpaca_transcriptionFactors.tsv > alpaca_transcriptionFactors_sorted.tsv
+ 1010  sort alpaca_stemcellproliferation_genes.tsv > alpaca_stemcellproliferation_genes_sorted.tsv
+ 1011  comm -12 alpaca_transcriptionFactors_sorted.tsv alpaca_stemcellproliferation_genes_sorted.tsv
+ 1012  comm -12 alpaca_transcriptionFactors_sorted.tsv alpaca_stemcellproliferation_genes_sorted.tsv | unique
+ 1013  comm -12 alpaca_transcriptionFactors_sorted.tsv alpaca_stemcellproliferation_genes_sorted.tsv | uniq
+ 1014  history > python6_history.txt
+ 1015  vi python6_history.txt
+ 1016  history[1009] > python_history.txt
