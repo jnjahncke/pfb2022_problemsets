@@ -30,10 +30,13 @@ print(f'My favorite {fav_thing}: {fave[fav_thing]}')
 
 # Ask the user to input a category and the favorite in that category
 # Change that item in the dictionary
-print(f'\nPick a category: {list(fave.keys())}\n')
+print(f'\nPick a category: {list(fave.keys())}')
 usrcategory = input("Enter a category: ")
 usrthing = input(f"What is your favorite {usrcategory}? ")
 fave[usrcategory] = usrthing
+
+# Change favorite organism
+fave["organism"] = "c. elegans"
 
 print("\nOur favorite things:")
 # Use a for loop to print out each key and value of the dictionary
