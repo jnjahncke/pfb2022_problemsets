@@ -26,12 +26,22 @@ print("My absolute favorite thing:",fave[fav_thing])
 # Take "thing" from input and print out the favorite
 print(f'\nPick a category: {list(fave.keys())}')
 fav_thing = input("Which of my favorite things do you want to know? ")
+while fav_thing not in fave:
+	print(f"""I don't have a favorite {fav_thing}.
+Try something else.""")
+	print(list(fave.keys()))
+	fav_thing = input("Which of my favorite things do you want to know? ")
 print(f'My favorite {fav_thing}: {fave[fav_thing]}')
 
 # Ask the user to input a category and the favorite in that category
 # Change that item in the dictionary
 print(f'\nPick a category: {list(fave.keys())}')
 usrcategory = input("Enter a category: ")
+while usrcategory not in fave:
+	print(f"""I don't have a favorite {usrcategory}.
+Try something else.""")
+	print(list(fave.keys()))
+	usrcategory = input("Enter a category: ")
 usrthing = input(f"What is your favorite {usrcategory}? ")
 fave[usrcategory] = usrthing
 
