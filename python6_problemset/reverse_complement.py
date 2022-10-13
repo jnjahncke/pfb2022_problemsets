@@ -10,8 +10,16 @@
 
 fasta = ""
 with open("Python_06.seq.txt","r") as seqset:
+	# iterate through lines of file
 	for line in seqset:
-		line = line.rstrip()	
-		seqname,seq = line.split()
-		fasta += "\n>" + seqname + "\n" + seq
-print(fasta) # STILL NEED TO MAKE REV COMP
+		line = line.rstrip() # strip whitespace on the end of the line
+		seqname,seq = line.split() # split at whitespace into list
+		# make complement
+		seq = seq.lower()
+		seq = seq.replace('a','T')
+		seq = seq.replace('t','A')
+		seq = seq.replace('g','C')
+		seq = seq.replace('c','G')
+		# make into fasta format and reverse it
+		fasta += "\n>" + seqname + "\tReverse complement\n" + seq[::-1]
+print(fasta)
