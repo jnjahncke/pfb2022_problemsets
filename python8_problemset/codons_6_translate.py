@@ -1,12 +1,22 @@
 #!/usr/bin/env python3
 
-# -----------------------------------------------
+# -------------------------------------------------
 # Import FASTA file,
 # 	Find codons for all 6 reading frames
 #		Export to `Python_08.codons-6frames.nt`
+#
 #	Translate all reading frames
 #		Export to `Python_08.translated.aa`
-# -----------------------------------------------
+#
+#	Find the longest peptide sequence (up to stop)
+#	of all 6 reading frames for a single sequence
+#		Export the SINGLE longest peptide
+#			to `Python_08.translated-longest.aa`
+#
+#	Determine which set of codons produced the 
+#		largest peptide
+#		Export to `Python_08.orf-longest.nt`
+# -------------------------------------------------
 
 # Take fasta from user input
 fasta_file = input("FASTA file: ")
@@ -65,7 +75,7 @@ with open("Python_08.codons-6frames.nt","w") as codons_out:
 				# Append to codon dictionary
 				frame.append(found.group(1))
 			# Write to file
-			codons_out.write(f"{sequencename}-frame-{framenum}-codons\n")
+			codons_out.write(f">{sequencename}-frame-{framenum}-codons\n")
 			codons_out.write(" ".join(seq_dict[sequencename]["codons"]["codons-f"+str(framenum)]))
 			codons_out.write("\n")
 
@@ -77,7 +87,7 @@ with open("Python_08.codons-6frames.nt","w") as codons_out:
 				# Append to codon dictionary
 				frame.append(found.group(1))
 			# Write to file
-			codons_out.write(f"{sequencename}-frame-{framenum}-codons\n")
+			codons_out.write(f">{sequencename}-frame-{framenum}-codons\n")
 			codons_out.write(" ".join(seq_dict[sequencename]["codons"]["codons-f"+str(framenum)]))
 			codons_out.write("\n")
  
@@ -123,6 +133,51 @@ with open("Python_08.translated.aa","w") as trans_out:
 						seq_dict[sequencename]["translations"]["trans-f"+str(framenum)].append(re.sub(dna,AA,codon))
 			seq_dict[sequencename]["translations"]["trans-f"+str(framenum)] = "".join(seq_dict[sequencename]["translations"]["trans-f"+str(framenum)])
 			# Write to output file
-			trans_out.write(f'{sequencename}-frame-{framenum}-translation\n')
+			trans_out.write(f'>{sequencename}-frame-{framenum}-translation\n')
 			trans_out.write(seq_dict[sequencename]["translations"]["trans-f"+str(framenum)])
 			trans_out.write("\n")
+
+# Find the longest peptide sequence of all 6 translations
+#	M = STOP
+trans_dict = {}
+with open("Python_08.translated-longest.aa","w") as long_out, open("Python_08.orf-longest.nt","w") as longest_NT:
+	# Iterate throgh sequences, get actual translations, save to trans_dict
+	for sequencename in seq_dict:
+		# Build dictionary
+		trans_dict[sequencename] = {"trans-f1" : {"translation" : "", "length" : 0},
+									"trans-f2" : {"translation":"","length":0},
+									"trans-f3" : {"translation":"","length":0},
+									"trans-f4" : {"translation":"","length":0},
+									"trans-f5" : {"translation":"","length":0},
+									"trans-f6" : {"translation":"","length":0}}
+		framenum = 0
+		# Iterate through all 6 translations
+		for translation in seq_dict[sequencename]["translations"]:
+			framenum += 1
+			seq_dict[sequencename]["translations"]["trans-f"+str(framenum)] = seq_dict[sequencename]["translations"]["trans-f"+str(framenum)].split("M")[0] # Note that this overwrites the translation
+			translen = len(seq_dict[sequencename]["translations"]["trans-f"+str(framenum)])
+			trans_dict[sequencename]["trans-f"+str(framenum)] = {"translation" : seq_dict[sequencename]["translations"]["trans-f"+str(framenum)],
+																	"length" : translen}
+
+	# New for loop: iterate through trans_dict
+	# For each sequence, find the longest translation
+	# Print in fasta format to Python_08.translated-longest.aa
+	for sequencename in trans_dict:
+		longest_transname = "trans-f1"
+		longest_len = 0
+		framenum = 0
+		for translation in trans_dict[sequencename]:
+			framenum += 1
+			if trans_dict[sequencename][translation]["length"] > longest_len:
+				longest_transname = "trans-f"+str(framenum) 
+				longest_len = trans_dict[sequencename][translation]["length"]
+				frame = int(longest_transname[-1]) # frame = the frame containing the longest translation
+		long_out.write(f'>{sequencename}-frame-{framenum}-longest-translation\n')
+		long_out.write(trans_dict[sequencename][longest_transname]["translation"])
+		long_out.write("\n")
+		
+		# Now that we know which frame is longest
+		# Print codons in fasta format to Python_08.orf-longest.nt	
+		longest_NT.write(f'>{sequencename}-frame-{frame}-codons-longest translation\n')
+		longest_NT.write(" ".join(seq_dict[sequencename]["codons"]["codons-f"+str(frame)]))
+		longest_NT.write("\n")
