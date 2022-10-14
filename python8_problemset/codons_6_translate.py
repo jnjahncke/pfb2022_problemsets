@@ -18,10 +18,27 @@
 #		Export to `Python_08.orf-longest.nt`
 # -------------------------------------------------
 
+import re
+class NoFileInput(Exception):
+	pass
+class NotFASTA(Exception):
+	pass
+class NotNucleotide(Exception):
+	pass
+
 # Take fasta from user input
 fasta_file = input("FASTA file: ")
 
-import re
+# Check if valid file
+try:
+	if bool(fasta_file) == False:
+		raise NoFileInput("No file input.")
+	if fasta_file[-3:] != ".fa" and fasta_file[-6:] != ".fasta":
+		raise NotFASTA("File not in FASTA format.")
+	with open(fasta_file,"r") as testrun:
+		pass
+except FileNotFoundError:
+	print("Can't open file:", fasta_file)
 
 seq_dict = {}
 with open(fasta_file,"r") as fasta_in:
@@ -55,6 +72,8 @@ with open(fasta_file,"r") as fasta_in:
 			if isseq > 0:
 				# Get sequence
 				seq_dict[seqname]["seq"] = seq_dict[seqname]["seq"] + line
+				if bool(re.findall("[^AGCTN\s]",line)) == True:
+					raise NotNucleotide("Sequence contains non-nucleotide characters.")
 				# Get reverse complement
 				seq_dict[seqname]["seq-rev-comp"] = seq_dict[seqname]["seq-rev-comp"] + line[::-1].lower()
 				seq_dict[seqname]["seq-rev-comp"] = seq_dict[seqname]["seq-rev-comp"].replace("a","T")
