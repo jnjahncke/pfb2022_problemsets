@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
 # Take fasta from user input
-#fasta_input = input("FASTA file: ")
-fasta_file = "Python_08.fasta"
+fasta_file = input("FASTA file: ")
 
 import re
 
@@ -24,8 +23,8 @@ with open(fasta_file,"r") as fasta_in:
 				seq_dict[seqname]["seq"] = seq_dict[seqname]["seq"] + line
 
 # Iterate through sequences and extract codons
-# 	Write to "Python_08.codons-3frames.nt"
-with open("Python_08.codons-3frames.nt","w") as codons_out:
+# 	Write to "Python_08.codons-frame-1.nt"
+with open("Python_08.codons-frame-1.nt","w") as codons_out:
 	for sequence in seq_dict: # iterate through sequences (called by name = sequence):
 		 # find matches for three letters
 		for found in re.finditer(r"(\w\w\w)",seq_dict[sequence]["seq"].upper()):
