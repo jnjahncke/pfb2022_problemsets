@@ -19,9 +19,10 @@ with open(fasta_file,"r") as fasta_in:
 	isseq = 0
 	for line in fasta_in:
 		line = line.rstrip()
-		if len(re.findall(">",line)) > 0: 
+		if len(re.findall(">",line)) > 0: # This is true if it is a header line
 			for found in re.finditer(r"^>(.+?)\s",line):
 				seqname = found.group(1)
+				# If it is a header line, build out the empty dictionary
 				seq_dict[seqname] = {"seq" : "",
 									"seq-rev-comp" : "",
 									"codons" : {
@@ -39,7 +40,7 @@ with open(fasta_file,"r") as fasta_in:
 										"trans-f5" : [],
 										"trans-f6" : []}}
 			isseq = 0
-		else:		
+		else: # It is a sequence line
 			isseq += 1
 			if isseq > 0:
 				# Get sequence
@@ -54,46 +55,32 @@ with open(fasta_file,"r") as fasta_in:
 # Iterate through sequences and extract codons
 # 	Write to "Python_08.codons-6frames.nt"
 with open("Python_08.codons-6frames.nt","w") as codons_out:
-	for sequence in seq_dict: # iterate through sequences (called by name = sequence):
+	for sequencename in seq_dict: # iterate through sequences (called by name = sequence):
 		# find matches for three letters
-		# first reading frame
-		for found in re.finditer(r"(\w\w\w)",seq_dict[sequence]["seq"].upper()):
-			seq_dict[sequence]["codons"]["codons-f1"].append(found.group(1)) # save codons to dictionary
-		# second reading frame
-		for found in re.finditer(r"(\w\w\w)",seq_dict[sequence]["seq"].upper()[1:]):
-			seq_dict[sequence]["codons"]["codons-f2"].append(found.group(1))
-		# third reading frame
-		for found in re.finditer(r"(\w\w\w)",seq_dict[sequence]["seq"].upper()[2:]):
-			seq_dict[sequence]["codons"]["codons-f3"].append(found.group(1))
-		# fourth reading frame
-		for found in re.finditer(r"(\w\w\w)",seq_dict[sequence]["seq-rev-comp"].upper()):
-			seq_dict[sequence]["codons"]["codons-f4"].append(found.group(1))
-		# fifth reading frame
-		for found in re.finditer(r"(\w\w\w)",seq_dict[sequence]["seq-rev-comp"].upper()[1:]):
-			seq_dict[sequence]["codons"]["codons-f5"].append(found.group(1))
-		# sixth reading frame
-		for found in re.finditer(r"(\w\w\w)",seq_dict[sequence]["seq-rev-comp"].upper()[2:]):
-			seq_dict[sequence]["codons"]["codons-f6"].append(found.group(1))
-	# write to output file
-		codons_out.write(f'{sequence}-frame-1-codons\n')
-		codons_out.write(" ".join(seq_dict[sequence]["codons"]["codons-f1"]))
-		codons_out.write("\n")
-		codons_out.write(f'{sequence}-frame-2-codons\n')
-		codons_out.write(" ".join(seq_dict[sequence]["codons"]["codons-f2"]))
-		codons_out.write("\n")		
-		codons_out.write(f'{sequence}-frame-3-codons\n')
-		codons_out.write(" ".join(seq_dict[sequence]["codons"]["codons-f3"]))
-		codons_out.write("\n")
-		codons_out.write(f'{sequence}-frame-4-codons\n')
-		codons_out.write(" ".join(seq_dict[sequence]["codons"]["codons-f4"]))
-		codons_out.write("\n")
-		codons_out.write(f'{sequence}-frame-5-codons\n')
-		codons_out.write(" ".join(seq_dict[sequence]["codons"]["codons-f5"]))
-		codons_out.write("\n")		
-		codons_out.write(f'{sequence}-frame-6-codons\n')
-		codons_out.write(" ".join(seq_dict[sequence]["codons"]["codons-f6"]))
-		codons_out.write("\n")
+		# Iterate through frames of first 3 sequences - forward sequences
+		for framenum in range(1,4,1):
+			frame = seq_dict[sequencename]["codons"]["codons-f"+str(framenum)]
+			# Separate into codons
+			for found in re.finditer(r"(\w\w\w)",seq_dict[sequencename]["seq"].upper()):
+				# Append to codon dictionary
+				frame.append(found.group(1))
+			# Write to file
+			codons_out.write(f"{sequencename}-frame-{framenum}-codons\n")
+			codons_out.write(" ".join(seq_dict[sequencename]["codons"]["codons-f"+str(framenum)]))
+			codons_out.write("\n")
 
+		# Iterate through reverse sequences
+		for framenum in range(4,7,1):
+			frame = seq_dict[sequencename]["codons"]["codons-f"+str(framenum)]
+			# Separate into codons
+			for found in re.finditer(r"(\w\w\w)",seq_dict[sequencename]["seq-rev-comp"].upper()):
+				# Append to codon dictionary
+				frame.append(found.group(1))
+			# Write to file
+			codons_out.write(f"{sequencename}-frame-{framenum}-codons\n")
+			codons_out.write(" ".join(seq_dict[sequencename]["codons"]["codons-f"+str(framenum)]))
+			codons_out.write("\n")
+ 
 # Translate all 6 reading frames
 translation_table = {
     'GCT':'A', 'GCC':'A', 'GCA':'A', 'GCG':'A',
@@ -120,15 +107,22 @@ translation_table = {
 }
 
 with open("Python_08.translated.aa","w") as trans_out:
+	# Iterate through sequences
 	for sequencename in seq_dict:
 		framenum = 0
+		# Iterate through frames, individual codons in each frame
 		for frame in seq_dict[sequencename]["codons"]:
 			framenum += 1
 			for codon in seq_dict[sequencename]["codons"]["codons-f"+str(framenum)]:
+				# Iterate through translation table
+				#	IF the codon matches the DNA fragment in the table
+				#	replace the codon DNA with the associated AA
+				# Append translation to dictionary
 				for dna,AA in translation_table.items():
 					if dna == codon:
 						seq_dict[sequencename]["translations"]["trans-f"+str(framenum)].append(re.sub(dna,AA,codon))
 			seq_dict[sequencename]["translations"]["trans-f"+str(framenum)] = "".join(seq_dict[sequencename]["translations"]["trans-f"+str(framenum)])
+			# Write to output file
 			trans_out.write(f'{sequencename}-frame-{framenum}-translation\n')
 			trans_out.write(seq_dict[sequencename]["translations"]["trans-f"+str(framenum)])
 			trans_out.write("\n")
