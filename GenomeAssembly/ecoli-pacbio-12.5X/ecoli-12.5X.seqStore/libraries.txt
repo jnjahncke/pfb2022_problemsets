@@ -1,0 +1,3 @@
+ID         technology  name
+---- ----------------  ------------------------------
+1              PacBio  ecoli_filtered_12.5X
