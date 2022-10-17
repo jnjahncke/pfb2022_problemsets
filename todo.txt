@@ -1,3 +1,5 @@
 - Python 6 problemset: extra portion (at bottom)
 - Python 10 problemset: pipelines (#7)
 - Biopython: extra credit (BLAST)
+- NGS problemset: fastq quality control - trim low quality reads
+	- further problems
