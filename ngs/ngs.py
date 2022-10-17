@@ -21,4 +21,24 @@ for record in SeqIO.parse(genome_file, "fasta"):
 		maxlen = len(record.seq)
 		longest_seqname = record.name
 
-print(f'The genome ({longest_seqname}) contains {maxlen} nucleotides.')
+print(f'The genome ({longest_seqname}) contains {maxlen} nucleotides.\n')
+
+# Figuring out which Phred quality encoding (ASCII offset) the reads are in
+# Every 4th line indicates quality
+linenum = 0
+qual_raw = ""
+with open("SRR21901339.fastq","r") as reads:
+	for line in reads:
+		linenum += 1
+		line = line.rstrip()
+		if linenum % 4 == 0:
+			qual_raw += line
+qual_raw_set = set(qual_raw) # Just extract the characters that are used
+qual_to_ASCII = []
+# Convert from character to ASCII
+for char in qual_raw_set:
+	qual_to_ASCII.append(ord(char))
+print(f"The phred characters used are: {qual_raw_set}")
+print(f"The converted numbers are: {qual_to_ASCII}")
+# The minimum ASCII should indicate the offset
+print(f"Because the minimum offset is {min(qual_to_ASCII)}, the offset can be assumed to be +33")

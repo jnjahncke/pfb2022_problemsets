@@ -46,14 +46,19 @@ grep ">" < Ecoli.fasta
 5. Use `wget` to download the FASTQ file of sequencing [reads](https://raw.githubusercontent.com/prog4biol/pfb2022/master/workshops/NGS/data/SRR21901339.fastq.gz) for our strain of interest, then use Unix commands to examine the FASTQ file:
     - How long are the reads? `grep -vm 1 "@" < SRR21901339.fastq | wc`
     - Are these reads single-end or paired-end? Explain how can you tell.
+		- Paired-end because there are headers for three reads in the same file.
     - Which Phred quality encoding (ASCII offset) are the reads in? How can you tell?
 
 
 6. Run FastQC on the FASTQ file and examine the report; see `fastqc --help` for a complete list of options. `open` the `fastqc_report.html` to view the report in your browser (you may have to `unzip` the FastQC archive file first). 
     - How many read pairs are in included in the FASTQ file?
+		- 400,000 (?)
     - For which metrics are there warnings?
+		- Per base sequence content and Per sequence GC content
     - Are there any over-represented sequences in the file? If so, what are they?
+		_ No
     - Are these reads of good quality?
+		- Yes
 
 
 7. Write a python script to trim poor-quality bases from the ends of the FASTQ sequences and output a new FASTQ file. Your script should take as input from the command line: one FASTQ file name and one integer value (the minimum base quality threshold). *HINT*: Use the following approach:
