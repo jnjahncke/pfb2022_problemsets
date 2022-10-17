@@ -50,30 +50,32 @@ file_in = sys.argv[1]
 threshold = int(sys.argv[2])
 
 with open(file_in,"r") as reads, open(file_in[:-6]+"_qc.fastq","w") as fastq_out:
-	linenum = 0
 	for line in reads:
-		linenum += 1
-		start_1 = ""
-		read_2 = ""
-		plus_3 = ""
-		qual_4 = ""
-		qual_trans = ""
-		qual_list = []
 		line = line.rstrip()
 		if line[0] == "@":
 			start_1 = line
-		if linenum % 2 == 0 and linenum % 4 != 0:
+			linenum = 2
+		elif linenum == 2:
 			read_2 = line
-		if line[0] == "+":
+			read_2_revlist = list(line[::-1])
+			linenum = 3
+		elif linenum == 3:
 			plus_3 = line
-		else:
+			linenum = 4
+		elif linenum == 4:
 			qual_4 = line
-			qual_4_temp = list(line)
-			for char in qual_4_temp:
-				if ord(char)-33 > threshold:
-					qual_list.append(ord(char))
-			qual_len = len(qual_list)*(-1)
-		fastq_out.write(f'''{start_1}
-{read_2[:qual_len]}
+			qual_4_revlist = list(line[::-1])
+			linenum = 1
+			phred = 0
+			while phred < threshold:
+				for char in qual_4_revlist:
+					phred = ord(char)-33
+					if phred < threshold:
+						read_2_revlist.pop(0)
+						qual_4_revlist.pop(0)
+				break
+
+			fastq_out.write(f'''{start_1}
+{"".join(read_2_revlist[::-1])}
 {plus_3}
-{qual_4[:qual_len]}''')
+{"".join(qual_4_revlist[::-1])}\n''')
