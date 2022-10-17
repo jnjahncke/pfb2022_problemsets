@@ -76,6 +76,6 @@ with open(file_in,"r") as reads, open(file_in[:-6]+"_qc.fastq","w") as fastq_out
 				break
 
 			fastq_out.write(f'''{start_1}
-{"".join(read_2_revlist[::-1])}
+{"".join(read_2_revlist[::-1])[18:]}
 {plus_3}
-{"".join(qual_4_revlist[::-1])}\n''')
+{"".join(qual_4_revlist[::-1])[18:]}\n''')
