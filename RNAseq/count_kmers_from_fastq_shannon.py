@@ -92,9 +92,9 @@ def main():
 	## printing the num top kmers to show
 	top_kmers_show = unique_kmers[0:num_top_kmers_show]
 
-	print(f"{'kmer':<8} {'count':>6} {'complexity'}")
+	print(f"{'kmer':<}\t{'count':>6}\t{'complexity'}")
 	for kmer in top_kmers_show:
-		print(f"{kmer:<8} {kmer_count_dict[kmer]:>6} {entropy_dict[kmer]:>5.2f}")
+		print(f"{kmer:<}\t{kmer_count_dict[kmer]:>6}\t{entropy_dict[kmer]:>5.2f}")
 
 	sys.exit(0)  # always good practice to indicate worked ok!
 
