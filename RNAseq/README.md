@@ -97,6 +97,20 @@ TCTTCT: 2208
 CTGGAG: 2174
 TGCTGT: 2156
 ```
+## Extra credit section:
+
+If you've accomplished the above, here's another challenge!
+
+Note that the top-most kmer is of low complexity.  If we are going to perform downstram operations like assembly and want to start with a seed kmer, we might want to avoid low complexity kmers as they would lack specificity.
+
+Challenge:  include another method that computes the complexity of each kmer using Shannon's Entropy
+      (example:  see: https://en.wikipedia.org/wiki/Sequence_logo#Logo_creation ), and picture the kmer as representing one column of the seqlogo for which you would get one entropy calculation.
+
+Add the entropy value as another column in the above printing.
+
+    
+(base) student@info-24 Exercise-counting_kmers % 
+
 
 # Estimating Gene Expression Levels
 
