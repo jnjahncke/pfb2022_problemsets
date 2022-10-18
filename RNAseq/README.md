@@ -108,9 +108,6 @@ Challenge:  include another method that computes the complexity of each kmer usi
 
 Add the entropy value as another column in the above printing.
 
-    
-(base) student@info-24 Exercise-counting_kmers % 
-
 
 # Estimating Gene Expression Levels
 
