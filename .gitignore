@@ -9,4 +9,4 @@ GenomeAssembly/ecoli-pacbio/ecoli.seqStore/blobs.0003
 GenomeAssembly/ecoli-pacbio/unitigging/ecoli.ctgStore/partition.0001
 RNAseq/__pycache__/*
 RNAseq/bowtie2.sam
-ipenv
+notebooks/.ipynb_checkpoints*
