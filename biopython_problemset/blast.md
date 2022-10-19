@@ -2,7 +2,7 @@
 conda install -c bioconda blast
 ```
 
-Input file = `salmonella.fasta'
+Input file = `salmonella.fasta`
 
 Format FASTA file so that BLAST+ can use it as a database:
 
