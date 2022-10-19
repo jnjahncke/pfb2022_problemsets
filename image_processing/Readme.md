@@ -25,6 +25,11 @@ Install packages:
 ```
 conda install -c conda-forge jupyter numpy pandas scipy matplotlib tifffile pillow
 ```
+To activate environment: `conda activate ipenv`
+To deactivate: `conda deactivate`
+To open notebook environment gui, after `conda activate ipenv`: `jupyter notebook`
+
+
 
 Alternative: To install from environment.yml file (environment will be called ipenv):
 ```
