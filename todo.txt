@@ -1,5 +1,2 @@
 - Python 6 problemset: extra portion (at bottom)
 - Python 10 problemset: pipelines (#7)
-- Biopython: extra credit (BLAST)
-- NGS problemset: align trimmed reads to the genome sequence
-	- further problems
