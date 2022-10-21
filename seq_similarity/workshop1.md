@@ -1,4 +1,4 @@
-# Similarity Searching Exercies
+# Similarity Searching Exercises
 
 Use the FASTA search page to compare Honey bee glutathione transferase D1 NP_001171499/ H9KLY5_APIME (gi|295842263) to the PIR1 Annotated protein sequence database.
 
@@ -48,8 +48,8 @@ i	6. How would you confirm that your candidate non-homology was truly unrelated?
 
 6. Working with short sequences -- when the scoring matrix matters -- (afternoon presentation) 
 	
-	1. Use the FASTX to compare the Honey bee GSTD1 mRNA (NM_001178028, gi|GI:295842262) to the PIR1 database. How does the sensitivity of this translated DNA vs protein search compare with your earlier protein:protein search? 
-	2. Now do the same search, but use only exon 3 of the Honey bee GSTD1 gene, which corresponds to nt 456-597. Use the Subset-range to select the exon 3 nucleotides from GSTD1 and run FASTX [pgm] again.
+	1. Use the FASTX to compare the Honey bee GSTD1 mRNA (NM_001178028, gi|GI:295842262) to the PIR1 database. How does the sensitivity of this translated DNA vs protein search compare with your earlier protein:protein search? Fewer hits when using DNA. Protein sequences are more sensitive.
+	2. Now do the same search, but use only exon 3 of the Honey bee GSTD1 gene, which corresponds to nt 456-597. Use the Subset-range to select the exon 3 nucleotides from GSTD1 and run FASTX again.
 
 		1. What is the E()-value with of the most distantly related homolog with BLOSUM50? What is the percent identity for this alignment?
 		2. How long is the longest possible translated amino-acid sequence? How long is the protein alignment?
