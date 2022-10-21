@@ -4,7 +4,7 @@
 # 800 AA random protein sequence against the QFO78 library of 78 Uniprot Reference Proteomes
 
 randseq = input("Specify sequence - <rand5-200> or <rand5-800>: ")
-print("Comparinng matrices: BLOSUM62, BLOSUM80, PAM30, PAM70...")
+print("Comparing matrices: BLOSUM62, BLOSUM80, PAM30, PAM70...")
 
 matrices = ["BLOSUM62", "BLOSUM80", "PAM30", "PAM70"]
 
