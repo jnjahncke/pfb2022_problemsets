@@ -45,3 +45,24 @@ i	6. How would you confirm that your candidate non-homology was truly unrelated?
 		- Looking at an alignment, where are the boundaries of the alignment (the best local region)?
 	2. What is the highest scoring non-homolog? 0.34
 	3. How do the BLASTP E-values compare with the FASTA (BLASTP62) E-values for the distantly related mammalian and plant sequences?
+
+6. Working with short sequences -- when the scoring matrix matters -- (afternoon presentation) 
+	
+	1. Use the FASTX to compare the Honey bee GSTD1 mRNA (NM_001178028, gi|GI:295842262) to the PIR1 database. How does the sensitivity of this translated DNA vs protein search compare with your earlier protein:protein search? 
+	2. Now do the same search, but use only exon 3 of the Honey bee GSTD1 gene, which corresponds to nt 456-597. Use the Subset-range to select the exon 3 nucleotides from GSTD1 and run FASTX [pgm] again.
+
+		1. What is the E()-value with of the most distantly related homolog with BLOSUM50? What is the percent identity for this alignment?
+		2. How long is the longest possible translated amino-acid sequence? How long is the protein alignment?
+		3. Why do you think the search is so much less sensitive?
+		4. What is the percent identity for the GSTA1_RAT alignment?
+		5. Looking at percent identities in the Scoring matrix drop-down, what might be a better scoring matrix for the GSTA1_RAT alignment?
+		6. What is the E()-value for that alignment with the new scoring matrix?
+		7. What is the E()-value of the highest scoring non-homolog with that scoring matrix?
+
+	3. Repeat the same translated FASTX search, using exon 2 of the Honey bee GSTD1 gene, which corresponds to nt 397-455 FASTX.
+
+		1. What is the best E()-value with BLOSUM50? What is the percent identity for this alignment?
+		2. How long is the longest possible translated amino-acid sequence? How long is the protein alignment?
+		3. What would be a more appropriate scoring matrix based on the percent identity?
+		4. What are the E()-values with that scoring matrix?
+		5. What is the E()-value of the highest scoring non-homolog with that scoring matrix?
