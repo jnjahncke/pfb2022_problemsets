@@ -30,7 +30,13 @@ To activate environment: `conda activate ipenv`
 
 To deactivate: `conda deactivate`
 
-To open notebook environment gui, after `conda activate ipenv`: `jupyter notebook`
+### To open notebook environment gui: 
+  * type `conda activate ipenv`: 
+  * type `cmd` to switch to command prompt
+  * type `activate base`
+  * type `jupyter notebook`
+  * to exit command prompt: type `exit`
+  * to deactivate the environment: type `conda deactivate`
 
 
 
